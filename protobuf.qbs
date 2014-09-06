@@ -10,6 +10,8 @@ Project {
     property stringList configIncludes: {
         if(qbs.targetOS.contains("osx")) {
             return ["config/osx"]
+        } else if(qbs.targetOS.contains("windows")) {
+            return ["config/windows"]
         }
 
         return [];
@@ -270,6 +272,14 @@ Project {
             condition: qbs.targetOS.contains("osx")
             files: [
                 "config/osx/config.h"
+            ]
+        }
+
+        Group {
+            name: "windows"
+            condition: qbs.targetOS.contains("windows")
+            files: [
+                "config/windows/config.h"
             ]
         }
     }
