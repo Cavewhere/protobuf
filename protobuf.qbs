@@ -12,13 +12,15 @@ Project {
             return ["config/osx"]
         } else if(qbs.targetOS.contains("windows")) {
             return ["config/windows"]
+        } else if(qbs.targetOS.contains("linux")) {
+            return ["config/linux"]
         }
 
         return [];
     }
 
     property stringList generalCxxFlags: {
-        if(qbs.targetOS.contains("osx")) {
+        if(qbs.targetOS.contains("osx") || qbs.targetOS.contains("linux")) {
             return ["-stdlib=libc++",
                     "-std=c++11"]
         }
@@ -26,7 +28,15 @@ Project {
         return [];
     }
 
-    property stringList includes: protoIncludes.concat(configIncludes)
+    property stringList includes: {
+        var osIncludePath = []
+        if(qbs.targetOS.contains("linux")) {
+            osIncludePath.push("/usr/include/c++/4.8")
+            osIncludePath.push("/usr/include/x86_64-linux-gnu/c++/4.8/")
+        }
+
+        return protoIncludes.concat(configIncludes, osIncludePath)
+    }
 
     property stringList protobufLiteSources: [
         "src/google/protobuf/stubs/atomicops_internals_x86_gcc.cc",
@@ -272,6 +282,14 @@ Project {
             condition: qbs.targetOS.contains("osx")
             files: [
                 "config/osx/config.h"
+            ]
+        }
+
+        Group {
+            name: "linux"
+            condition: qbs.targetOS.contains("linux")
+            files: [
+                "config/linux/config.h"
             ]
         }
 
