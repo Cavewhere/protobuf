@@ -54,6 +54,8 @@
 #ifndef GOOGLE_PROTOBUF_DESCRIPTOR_H__
 #define GOOGLE_PROTOBUF_DESCRIPTOR_H__
 
+
+
 #include <set>
 #include <string>
 #include <vector>
@@ -1285,7 +1287,14 @@ class LIBPROTOBUF_EXPORT DescriptorPool {
       const Message* descriptor,   // Descriptor of the erroneous element.
       ErrorLocation location,      // One of the location constants, above.
       const string& message        // Human-readable error message.
-      ) {}
+      )
+    {
+    GOOGLE_PROTOBUF_UNUSED(filename);
+    GOOGLE_PROTOBUF_UNUSED(element_name);
+    GOOGLE_PROTOBUF_UNUSED(descriptor);
+    GOOGLE_PROTOBUF_UNUSED(location);
+    GOOGLE_PROTOBUF_UNUSED(message);
+    }
 
    private:
     GOOGLE_DISALLOW_EVIL_CONSTRUCTORS(ErrorCollector);

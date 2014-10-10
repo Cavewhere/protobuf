@@ -79,6 +79,8 @@ inline BOOL GetMessage(
 }
 #endif
 
+// Avoid "unused parameter" warnings
+#define GOOGLE_PROTOBUF_UNUSED(x) (void)x;
 
 namespace std {}
 

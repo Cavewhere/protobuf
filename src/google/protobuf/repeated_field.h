@@ -84,6 +84,8 @@ inline int CalculateReserve(Iter begin, Iter end, std::forward_iterator_tag) {
 
 template <typename Iter>
 inline int CalculateReserve(Iter begin, Iter end, std::input_iterator_tag) {
+    GOOGLE_PROTOBUF_UNUSED(begin);
+    GOOGLE_PROTOBUF_UNUSED(end);
   return -1;
 }
 

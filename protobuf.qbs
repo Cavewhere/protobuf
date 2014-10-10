@@ -39,8 +39,8 @@ Project {
     }
 
     property stringList protobufLiteSources: [
-        "src/google/protobuf/stubs/atomicops_internals_x86_gcc.cc",
-        "src/google/protobuf/stubs/atomicops_internals_x86_msvc.cc",
+//        "src/google/protobuf/stubs/atomicops_internals_x86_gcc.cc",
+//        "src/google/protobuf/stubs/atomicops_internals_x86_msvc.cc",
         "src/google/protobuf/stubs/common.cc",
         "src/google/protobuf/stubs/once.cc",
         "src/google/protobuf/stubs/hash.h",
@@ -66,6 +66,7 @@ Project {
         cpp.cxxFlags: generalCxxFlags
         cpp.includePaths: includes
         cpp.minimumOsxVersion: "10.7"
+        cpp.warningLevel: "none"
         files: protobufLiteSources
     }
 
@@ -75,6 +76,7 @@ Project {
         cpp.includePaths: includes
         cpp.cxxFlags: generalCxxFlags
         cpp.minimumOsxVersion: "10.7"
+        cpp.warningLevel: "none"
 
         Export {
             Depends { name: "cpp" }
@@ -116,6 +118,7 @@ Project {
         cpp.includePaths: includes
         cpp.cxxFlags: generalCxxFlags
         cpp.minimumOsxVersion: "10.7"
+        cpp.warningLevel: "none"
         files: [
             "src/google/protobuf/compiler/code_generator.cc",
             "src/google/protobuf/compiler/command_line_interface.cc",
@@ -199,6 +202,7 @@ Project {
         cpp.cxxFlags: generalCxxFlags
         cpp.includePaths: includes
         cpp.minimumOsxVersion: "10.7"
+        cpp.warningLevel: "none"
 
         Properties {
             condition: qbs.targetOS.contains("osx")

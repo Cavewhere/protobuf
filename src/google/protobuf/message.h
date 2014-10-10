@@ -391,18 +391,25 @@ class LIBPROTOBUF_EXPORT Reflection {
   // the subclasses.
   virtual bool HasOneof(const Message& message,
                         const OneofDescriptor* oneof_descriptor) const {
-    return false;
+    GOOGLE_PROTOBUF_UNUSED(message);
+    GOOGLE_PROTOBUF_UNUSED(oneof_descriptor);
+      return false;
   }
 
   virtual void ClearOneof(Message* message,
-                          const OneofDescriptor* oneof_descriptor) const {}
+                          const OneofDescriptor* oneof_descriptor) const {
+      GOOGLE_PROTOBUF_UNUSED(message);
+      GOOGLE_PROTOBUF_UNUSED(oneof_descriptor);
+  }
 
   // Returns the field descriptor if the oneof is set. NULL otherwise.
   // TODO(jieluo) - make it pure virtual.
   virtual const FieldDescriptor* GetOneofFieldDescriptor(
-      const Message& message,
-      const OneofDescriptor* oneof_descriptor) const {
-    return NULL;
+          const Message& message,
+          const OneofDescriptor* oneof_descriptor) const {
+      GOOGLE_PROTOBUF_UNUSED(message);
+      GOOGLE_PROTOBUF_UNUSED(oneof_descriptor);
+      return NULL;
   }
 
   // Removes the last element of a repeated field.
