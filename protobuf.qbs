@@ -28,6 +28,13 @@ Project {
         return [];
     }
 
+    property stringList defines: {
+        if(qbs.targetOS.contains("windows")) {
+            return ["_SCL_SECURE_NO_WARNINGS"]
+        }
+        return []
+    }
+
     property stringList includes: {
         var osIncludePath = []
         if(qbs.targetOS.contains("linux")) {
@@ -72,20 +79,22 @@ Project {
     StaticLibrary {
         name: "protobuf-lite"
         Depends { name: "cpp" }
-        cpp.cxxFlags: generalCxxFlags
-        cpp.includePaths: includes
+        cpp.cxxFlags: project.generalCxxFlags
+        cpp.includePaths: project.includes
         cpp.minimumOsxVersion: "10.7"
         cpp.warningLevel: "none"
+        cpp.defines: project.defines
         files: protobufLiteSources
     }
 
     StaticLibrary {
         name: "protobuf"
         Depends { name: "cpp" }
-        cpp.includePaths: includes
-        cpp.cxxFlags: generalCxxFlags
+        cpp.includePaths: project.includes
+        cpp.cxxFlags: project.generalCxxFlags
         cpp.minimumOsxVersion: "10.7"
         cpp.warningLevel: "none"
+        cpp.defines: project.defines
 
         Export {
             Depends { name: "cpp" }
@@ -124,10 +133,11 @@ Project {
     StaticLibrary {
         name: "protoc-library"
         Depends { name: "cpp" }
-        cpp.includePaths: includes
-        cpp.cxxFlags: generalCxxFlags
+        cpp.includePaths: project.includes
+        cpp.cxxFlags: project.generalCxxFlags
         cpp.minimumOsxVersion: "10.7"
         cpp.warningLevel: "none"
+        cpp.defines: project.defines
         files: [
             "src/google/protobuf/compiler/code_generator.cc",
             "src/google/protobuf/compiler/command_line_interface.cc",
@@ -208,10 +218,11 @@ Project {
         Depends { name: "protoc-library" }
         Depends { name: "protobuf" }
 
-        cpp.cxxFlags: generalCxxFlags
-        cpp.includePaths: includes
+        cpp.cxxFlags: project.generalCxxFlags
+        cpp.includePaths: project.includes
         cpp.minimumOsxVersion: "10.7"
         cpp.warningLevel: "none"
+        cpp.defines: project.defines
 
         Properties {
             condition: qbs.targetOS.contains("osx")
