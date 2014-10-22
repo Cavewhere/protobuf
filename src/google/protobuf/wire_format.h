@@ -323,6 +323,10 @@ inline void WireFormat::VerifyUTF8String(const char* data, int size,
 inline void WireFormat::VerifyUTF8StringNamedField(
     const char* data, int size, WireFormat::Operation op,
     const char* field_name) {
+GOOGLE_PROTOBUF_UNUSED(data);
+GOOGLE_PROTOBUF_UNUSED(size);
+GOOGLE_PROTOBUF_UNUSED(field_name);
+GOOGLE_PROTOBUF_UNUSED(op);
 #ifdef GOOGLE_PROTOBUF_UTF8_VALIDATION_ENABLED
   WireFormat::VerifyUTF8StringFallback(data, size, op, field_name);
 #endif
