@@ -20,9 +20,11 @@ Project {
     }
 
     property stringList generalCxxFlags: {
-        if(qbs.targetOS.contains("osx") || qbs.targetOS.contains("linux")) {
+        if(qbs.targetOS.contains("osx")) {
             return ["-stdlib=libc++",
                     "-std=c++11"]
+        } else if(qbs.targetOS.contains("linux")) {
+            return ["-std=c++11"]
         }
 
         return [];
