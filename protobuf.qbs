@@ -83,7 +83,7 @@ Project {
         Depends { name: "cpp" }
         cpp.cxxFlags: project.generalCxxFlags
         cpp.includePaths: project.includes
-        cpp.minimumOsxVersion: "10.7"
+        cpp.minimumMacosVersion: "10.7"
         cpp.warningLevel: "none"
         cpp.defines: project.defines
         files: protobufLiteSources
@@ -94,7 +94,7 @@ Project {
         Depends { name: "cpp" }
         cpp.includePaths: project.includes
         cpp.cxxFlags: project.generalCxxFlags
-        cpp.minimumOsxVersion: "10.7"
+        cpp.minimumMacosVersion: "10.7"
         cpp.warningLevel: "none"
         cpp.defines: project.defines
 
@@ -137,7 +137,7 @@ Project {
         Depends { name: "cpp" }
         cpp.includePaths: project.includes
         cpp.cxxFlags: project.generalCxxFlags
-        cpp.minimumOsxVersion: "10.7"
+//        cpp.minimumMacosVersion: "10.7"
         cpp.warningLevel: "none"
         cpp.defines: project.defines
         files: [
@@ -222,17 +222,17 @@ Project {
 
         cpp.cxxFlags: project.generalCxxFlags
         cpp.includePaths: project.includes
-        cpp.minimumOsxVersion: "10.7"
+        cpp.minimumMacosVersion: "10.7"
         cpp.warningLevel: "none"
         cpp.defines: project.defines
 
-        Properties {
-            condition: qbs.targetOS.contains("osx")
+//        Properties {
+//            condition: qbs.targetOS.contains("osx")
 
-            cpp.dynamicLibraries: [
-                "c++"
-            ]
-        }
+//            cpp.dynamicLibraries: [
+//                "c++"
+//            ]
+//        }
 
         files: [
             "src/google/protobuf/compiler/main.cc"
