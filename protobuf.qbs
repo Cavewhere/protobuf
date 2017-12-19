@@ -19,17 +19,6 @@ Project {
         return [];
     }
 
-    property stringList generalCxxFlags: {
-        if(qbs.targetOS.contains("osx")) {
-            return ["-stdlib=libc++",
-                    "-std=c++11"]
-        } else if(qbs.targetOS.contains("linux")) {
-            return ["-std=c++11"]
-        }
-
-        return [];
-    }
-
     property stringList defines: {
         if(qbs.targetOS.contains("windows")) {
             return ["_SCL_SECURE_NO_WARNINGS"]
@@ -82,8 +71,8 @@ Project {
         name: "protobuf-lite"
         Depends { name: "cpp" }
         cpp.cxxFlags: project.generalCxxFlags
+        cpp.cxxLanguageVersion: "c++11"
         cpp.includePaths: project.includes
-        cpp.minimumMacosVersion: "10.7"
         cpp.warningLevel: "none"
         cpp.defines: project.defines
         files: protobufLiteSources
@@ -94,7 +83,7 @@ Project {
         Depends { name: "cpp" }
         cpp.includePaths: project.includes
         cpp.cxxFlags: project.generalCxxFlags
-        cpp.minimumMacosVersion: "10.7"
+        cpp.cxxLanguageVersion: "c++11"
         cpp.warningLevel: "none"
         cpp.defines: project.defines
 
@@ -137,7 +126,7 @@ Project {
         Depends { name: "cpp" }
         cpp.includePaths: project.includes
         cpp.cxxFlags: project.generalCxxFlags
-//        cpp.minimumMacosVersion: "10.7"
+        cpp.cxxLanguageVersion: "c++11"
         cpp.warningLevel: "none"
         cpp.defines: project.defines
         files: [
@@ -222,17 +211,9 @@ Project {
 
         cpp.cxxFlags: project.generalCxxFlags
         cpp.includePaths: project.includes
-        cpp.minimumMacosVersion: "10.7"
+        cpp.cxxLanguageVersion: "c++11"
         cpp.warningLevel: "none"
         cpp.defines: project.defines
-
-//        Properties {
-//            condition: qbs.targetOS.contains("osx")
-
-//            cpp.dynamicLibraries: [
-//                "c++"
-//            ]
-//        }
 
         files: [
             "src/google/protobuf/compiler/main.cc"
