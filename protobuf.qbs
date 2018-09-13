@@ -40,10 +40,8 @@ Project {
 
         var sources = [
                     "src/google/protobuf/stubs/common.cc",
-                    "src/google/protobuf/stubs/once.cc",
                     "src/google/protobuf/stubs/hash.h",
                     "src/google/protobuf/stubs/map_util.h",
-                    "src/google/protobuf/stubs/shared_ptr.h",
                     "src/google/protobuf/stubs/stringprintf.cc",
                     "src/google/protobuf/stubs/stringprintf.h",
                     "src/google/protobuf/stubs/stringpiece.h",
@@ -62,7 +60,6 @@ Project {
         if(qbs.targetOS.contains("linux")) {
             sources.push("src/google/protobuf/stubs/atomicops_internals_x86_gcc.cc");
         } else if(qbs.targetOS.contains("windows")) {
-            sources.push("src/google/protobuf/stubs/atomicops_internals_x86_msvc.cc");
             sources.push("src/google/protobuf/stubs/io_win32.cc");
         }
 
@@ -104,8 +101,6 @@ Project {
                    "src/google/protobuf/stubs/structurally_valid.cc",
                    "src/google/protobuf/stubs/status.cc",
                    "src/google/protobuf/stubs/status.h",
-                   "src/google/protobuf/stubs/common.cc",
-                   "src/google/protobuf/stubs/common.h",
                    "src/google/protobuf/descriptor.cc",
                    "src/google/protobuf/descriptor.pb.cc",
                    "src/google/protobuf/descriptor_database.cc",
@@ -188,39 +183,6 @@ Project {
             "src/google/protobuf/compiler/cpp/cpp_padding_optimizer.cc",
             "src/google/protobuf/compiler/java/*.cc",
             "src/google/protobuf/compiler/java/*.h",
-            "src/google/protobuf/compiler/java/java_enum.cc",
-            "src/google/protobuf/compiler/java/java_enum.h",
-            "src/google/protobuf/compiler/java/java_enum_field.cc",
-            "src/google/protobuf/compiler/java/java_enum_field.h",
-            "src/google/protobuf/compiler/java/java_extension.cc",
-            "src/google/protobuf/compiler/java/java_extension.h",
-            "src/google/protobuf/compiler/java/java_field.cc",
-            "src/google/protobuf/compiler/java/java_field.h",
-            "src/google/protobuf/compiler/java/java_file.cc",
-            "src/google/protobuf/compiler/java/java_file.h",
-            "src/google/protobuf/compiler/java/java_generator.cc",
-            "src/google/protobuf/compiler/java/java_generator_factory.cc",
-            "src/google/protobuf/compiler/java/java_generator_factory.h",
-            "src/google/protobuf/compiler/java/java_helpers.cc",
-            "src/google/protobuf/compiler/java/java_helpers.h",
-            "src/google/protobuf/compiler/java/java_lazy_message_field.cc",
-            "src/google/protobuf/compiler/java/java_lazy_message_field.h",
-            "src/google/protobuf/compiler/java/java_message.cc",
-            "src/google/protobuf/compiler/java/java_message.h",
-            "src/google/protobuf/compiler/java/java_message_field.cc",
-            "src/google/protobuf/compiler/java/java_message_field.h",
-            "src/google/protobuf/compiler/java/java_name_resolver.cc",
-            "src/google/protobuf/compiler/java/java_name_resolver.h",
-            "src/google/protobuf/compiler/java/java_primitive_field.cc",
-            "src/google/protobuf/compiler/java/java_primitive_field.h",
-            "src/google/protobuf/compiler/java/java_shared_code_generator.cc",
-            "src/google/protobuf/compiler/java/java_shared_code_generator.h",
-            "src/google/protobuf/compiler/java/java_service.cc",
-            "src/google/protobuf/compiler/java/java_service.h",
-            "src/google/protobuf/compiler/java/java_string_field.cc",
-            "src/google/protobuf/compiler/java/java_string_field.h",
-            "src/google/protobuf/compiler/java/java_doc_comment.cc",
-            "src/google/protobuf/compiler/java/java_doc_comment.h",
             "src/google/protobuf/compiler/python/python_generator.cc",
             "src/google/protobuf/compiler/csharp/*.cc",
             "src/google/protobuf/compiler/csharp/*.h",
@@ -259,24 +221,11 @@ Project {
         type: "includes"
 
         files: [
-            "src/google/protobuf/stubs/atomicops.h",
-            "src/google/protobuf/stubs/atomicops_internals_arm_gcc.h",
-            "src/google/protobuf/stubs/atomicops_internals_arm64_gcc.h",
-            "src/google/protobuf/stubs/atomicops_internals_arm_qnx.h",
-            "src/google/protobuf/stubs/atomicops_internals_atomicword_compat.h",
-            "src/google/protobuf/stubs/atomicops_internals_generic_gcc.h",
-            "src/google/protobuf/stubs/atomicops_internals_macosx.h",
-            "src/google/protobuf/stubs/atomicops_internals_mips_gcc.h",
-            "src/google/protobuf/stubs/atomicops_internals_pnacl.h",
-            "src/google/protobuf/stubs/atomicops_internals_tsan.h",
-            "src/google/protobuf/stubs/atomicops_internals_x86_gcc.h",
-            "src/google/protobuf/stubs/atomicops_internals_x86_msvc.h",
             "src/google/protobuf/stubs/common.h",
             "src/google/protobuf/stubs/platform_macros.h",
             "src/google/protobuf/stubs/once.h",
             "src/google/protobuf/stubs/stl_util.h",
             "src/google/protobuf/stubs/template_util.h",
-            "src/google/protobuf/stubs/type_traits.h",
             "src/google/protobuf/descriptor.h",
             "src/google/protobuf/descriptor.pb.h",
             "src/google/protobuf/descriptor_database.h",
@@ -359,12 +308,12 @@ Project {
             ]
         }
 
-        Group {
-            name: "windows"
-            condition: qbs.targetOS.contains("windows")
-            files: [
-                "config/windows/config.h"
-            ]
-        }
+//        Group {
+//            name: "windows"
+//            condition: qbs.targetOS.contains("windows")
+//            files: [
+//                "config/windows/config.h"
+//            ]
+//        }
     }
 }
