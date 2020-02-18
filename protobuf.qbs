@@ -315,5 +315,5 @@ Project {
 //                "config/windows/config.h"
 //            ]
 //        }
-    }
+//    }
 }
