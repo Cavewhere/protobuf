@@ -288,25 +288,25 @@ Project {
 
     }
 
-    Product {
-        name: "config"
-        type: "includes"
+//    Product {
+//        name: "config"
+//        type: "includes"
 
-        Group {
-            name: "osx"
-            condition: qbs.targetOS.contains("osx")
-            files: [
-                "config/osx/config.h"
-            ]
-        }
+//        Group {
+//            name: "osx"
+//            condition: qbs.targetOS.contains("osx")
+//            files: [
+//                "config/osx/config.h"
+//            ]
+//        }
 
-        Group {
-            name: "linux"
-            condition: qbs.targetOS.contains("linux")
-            files: [
-                "config/linux/config.h"
-            ]
-        }
+//        Group {
+//            name: "linux"
+//            condition: qbs.targetOS.contains("linux")
+//            files: [
+//                "config/linux/config.h"
+//            ]
+//        }
 
 //        Group {
 //            name: "windows"
