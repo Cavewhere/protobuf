@@ -58,7 +58,7 @@ Project {
                 ]
 
         if(qbs.targetOS.contains("linux")) {
-            sources.push("src/google/protobuf/stubs/atomicops_internals_x86_gcc.cc");
+         //   sources.push("src/google/protobuf/stubs/atomicops_internals_x86_gcc.cc");
         } else if(qbs.targetOS.contains("windows")) {
             sources.push("src/google/protobuf/stubs/io_win32.cc");
         }
