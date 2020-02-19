@@ -22,67 +22,80 @@ Project {
     property stringList defines: {
         if(qbs.targetOS.contains("windows")) {
             return ["_SCL_SECURE_NO_WARNINGS"]
+        } else if(qbs.targetOS.contains("linux")) {
+            return ["HAVE_PTHREAD"]
         }
+
         return []
     }
 
     property stringList includes: {
         var osIncludePath = []
-        if(qbs.targetOS.contains("linux")) {
-            osIncludePath.push("/usr/include/c++/4.8")
-            osIncludePath.push("/usr/include/x86_64-linux-gnu/c++/4.8/")
-        }
+        //        if(qbs.targetOS.contains("linux")) {
+        //            osIncludePath.push("/usr/include/c++/4.8")
+        //            osIncludePath.push("/usr/include/x86_64-linux-gnu/c++/4.8/")
+        //        }
 
         return protoIncludes.concat(configIncludes, osIncludePath)
     }
 
-    property stringList protobufLiteSources: {
+    //    property stringList protobufLiteSources: {
 
-        var sources = [
-                    "src/google/protobuf/stubs/common.cc",
-                    "src/google/protobuf/stubs/hash.h",
-                    "src/google/protobuf/stubs/map_util.h",
-                    "src/google/protobuf/stubs/stringprintf.cc",
-                    "src/google/protobuf/stubs/stringprintf.h",
-                    "src/google/protobuf/stubs/stringpiece.h",
-                    "src/google/protobuf/stubs/stringpiece.cc",
-                    "src/google/protobuf/extension_set.cc",
-                    "src/google/protobuf/generated_message_util.cc",
-                    "src/google/protobuf/message_lite.cc",
-                    "src/google/protobuf/repeated_field.cc",
-                    "src/google/protobuf/wire_format_lite.cc",
-                    "src/google/protobuf/io/coded_stream.cc",
-                    "src/google/protobuf/io/coded_stream_inl.h",
-                    "src/google/protobuf/io/zero_copy_stream.cc",
-                    "src/google/protobuf/io/zero_copy_stream_impl_lite.cc"
-                ]
+    //        var sources = [
+    //                    "src/google/protobuf/stubs/common.cc",
+    //                    "src/google/protobuf/stubs/hash.h",
+    //                    "src/google/protobuf/stubs/map_util.h",
+    //                    "src/google/protobuf/stubs/stringprintf.cc",
+    //                    "src/google/protobuf/stubs/stringprintf.h",
+    //                    "src/google/protobuf/stubs/stringpiece.h",
+    //                    "src/google/protobuf/stubs/stringpiece.cc",
+    //                    "src/google/protobuf/stubs/logging.h",
+    //                    "src/google/protobuf/extension_set.cc",
+    //                    "src/google/protobuf/generated_message_util.cc",
+    //                    "src/google/protobuf/message_lite.cc",
+    //                    "src/google/protobuf/repeated_field.cc",
+    //                    "src/google/protobuf/wire_format_lite.cc",
+    //                    "src/google/protobuf/io/coded_stream.cc",
+    //                    "src/google/protobuf/io/coded_stream_inl.h",
+    //                    "src/google/protobuf/io/zero_copy_stream.cc",
+    //                    "src/google/protobuf/io/zero_copy_stream_impl_lite.cc",
+    //                    "src/google/protobuf/implicit_weak_message.cc",
+    //                    "src/google/protobuf/implicit_weak_message.h",
+    //                    "src/google/protobuf/stubs/status.cc",
+    //                    "src/google/protobuf/stubs/status.h",
+    //                    "src/google/protobuf/stubs/structurally_valid.cc",
 
-        if(qbs.targetOS.contains("linux")) {
-         //   sources.push("src/google/protobuf/stubs/atomicops_internals_x86_gcc.cc");
-        } else if(qbs.targetOS.contains("windows")) {
-            sources.push("src/google/protobuf/stubs/io_win32.cc");
-        }
+    //                ]
 
-        return sources;
-    }
+    //        if(qbs.targetOS.contains("linux")) {
+    //            //   sources.push("src/google/protobuf/stubs/atomicops_internals_x86_gcc.cc");
+    //        } else if(qbs.targetOS.contains("windows")) {
+    //            sources.push("src/google/protobuf/stubs/io_win32.cc");
+    //        }
+
+    //        return sources;
+    //    }
 
 
-    StaticLibrary {
-        name: "protobuf-lite"
-        Depends { name: "cpp" }
-        cpp.cxxFlags: project.generalCxxFlags
-        cpp.cxxLanguageVersion: "c++11"
-        cpp.includePaths: project.includes
-        cpp.warningLevel: "none"
-        cpp.defines: project.defines
-        files: protobufLiteSources
-    }
+    //    StaticLibrary {
+    //        name: "protobuf-lite"
+    //        Depends { name: "cpp" }
+    ////        cpp.cxxFlags: project.generalCxxFlags
+    ////        cpp.useLanguageVersionFallback: true
+    //        cpp.cxxLanguageVersion: "c++11"
+    //        cpp.includePaths: project.includes
+    //        cpp.warningLevel: "none"
+    //        cpp.defines: project.defines
+    //        files: protobufLiteSources
+    //    }
 
     StaticLibrary {
         name: "protobuf"
         Depends { name: "cpp" }
+        //        Depends { name: "protobuf-lite" }
         cpp.includePaths: project.includes
-        cpp.cxxFlags: project.generalCxxFlags
+        //        cpp.cxxFlags: project.generalCxxFlags
+        //        cpp.useLanguageVersionFallback: true
         cpp.cxxLanguageVersion: "c++11"
         cpp.warningLevel: "none"
         cpp.defines: project.defines
@@ -90,57 +103,92 @@ Project {
         Export {
             Depends { name: "cpp" }
             cpp.includePaths: project.includes
-            cpp.cxxFlags: project.generalCxxFlags
+
+            //            cpp.cxxFlags: project.generalCxxFlags
         }
 
-        files: protobufLiteSources.concat(
-                   "src/google/protobuf/stubs/strutil.cc",
-                   "src/google/protobuf/stubs/strutil.h",
-                   "src/google/protobuf/stubs/substitute.cc",
-                   "src/google/protobuf/stubs/substitute.h",
-                   "src/google/protobuf/stubs/structurally_valid.cc",
-                   "src/google/protobuf/stubs/status.cc",
-                   "src/google/protobuf/stubs/status.h",
-                   "src/google/protobuf/descriptor.cc",
-                   "src/google/protobuf/descriptor.pb.cc",
-                   "src/google/protobuf/descriptor_database.cc",
-                   "src/google/protobuf/dynamic_message.cc",
-                   "src/google/protobuf/extension_set_heavy.cc",
-                   "src/google/protobuf/generated_message_reflection.cc",
-                   "src/google/protobuf/message.cc",
-                   "src/google/protobuf/reflection_ops.cc",
-                   "src/google/protobuf/service.cc",
-                   "src/google/protobuf/text_format.cc",
-                   "src/google/protobuf/unknown_field_set.cc",
-                   "src/google/protobuf/wire_format.cc",
-                   "src/google/protobuf/io/gzip_stream.cc",
-                   "src/google/protobuf/io/printer.cc",
-                   "src/google/protobuf/io/strtod.cc",
-                   "src/google/protobuf/io/tokenizer.cc",
-                   "src/google/protobuf/io/zero_copy_stream_impl.cc",
-                   "src/google/protobuf/compiler/importer.cc",
-                   "src/google/protobuf/compiler/parser.cc",
-                   "src/google/protobuf/arena.cc",
-                   "src/google/protobuf/implicit_weak_message.cc",
-                   "src/google/protobuf/implicit_weak_message.h",
-                   "src/google/protobuf/map_field.h",
-                   "src/google/protobuf/map_field.cc",
-                   "src/google/protobuf/any.cc",
-                   "src/google/protobuf/any.h",
-                   "src/google/protobuf/stubs/int128.h",
-                   "src/google/protobuf/stubs/int128.cc"
-//                   "src/google/protobuf/util/*.cc",
-//                   "src/google/protobuf/util/*.h"
-                   )
+        files: {
 
+            var sources = [
+                        "src/google/protobuf/stubs/common.cc",
+                        "src/google/protobuf/stubs/hash.h",
+                        "src/google/protobuf/stubs/map_util.h",
+                        "src/google/protobuf/stubs/stringprintf.cc",
+                        "src/google/protobuf/stubs/stringprintf.h",
+                        "src/google/protobuf/stubs/stringpiece.h",
+                        "src/google/protobuf/stubs/stringpiece.cc",
+                        "src/google/protobuf/stubs/logging.h",
+                        "src/google/protobuf/extension_set.cc",
+                        "src/google/protobuf/generated_message_util.cc",
+                        "src/google/protobuf/message_lite.cc",
+                        "src/google/protobuf/repeated_field.cc",
+                        "src/google/protobuf/wire_format_lite.cc",
+                        "src/google/protobuf/io/coded_stream.cc",
+                        "src/google/protobuf/io/coded_stream_inl.h",
+                        "src/google/protobuf/io/zero_copy_stream.cc",
+                        "src/google/protobuf/io/zero_copy_stream_impl_lite.cc",
+                        "src/google/protobuf/implicit_weak_message.cc",
+                        "src/google/protobuf/implicit_weak_message.h",
+                        "src/google/protobuf/stubs/status.cc",
+                        "src/google/protobuf/stubs/status.h",
+                        "src/google/protobuf/stubs/structurally_valid.cc",
+                        "src/google/protobuf/stubs/strutil.cc",
+                        "src/google/protobuf/stubs/strutil.h",
+                        "src/google/protobuf/stubs/substitute.cc",
+                        "src/google/protobuf/stubs/substitute.h",
+                        //                   "src/google/protobuf/stubs/structurally_valid.cc",
+                        //                   "src/google/protobuf/stubs/status.cc",
+                        //                   "src/google/protobuf/stubs/status.h",
+                        "src/google/protobuf/descriptor.cc",
+                        "src/google/protobuf/descriptor.pb.cc",
+                        "src/google/protobuf/descriptor_database.cc",
+                        "src/google/protobuf/dynamic_message.cc",
+                        "src/google/protobuf/extension_set_heavy.cc",
+                        "src/google/protobuf/generated_message_reflection.cc",
+                        "src/google/protobuf/message.cc",
+                        "src/google/protobuf/reflection_ops.cc",
+                        "src/google/protobuf/service.cc",
+                        "src/google/protobuf/text_format.cc",
+                        "src/google/protobuf/unknown_field_set.cc",
+                        "src/google/protobuf/wire_format.cc",
+                        "src/google/protobuf/io/gzip_stream.cc",
+                        "src/google/protobuf/io/printer.cc",
+                        "src/google/protobuf/io/strtod.cc",
+                        "src/google/protobuf/io/tokenizer.cc",
+                        "src/google/protobuf/io/zero_copy_stream_impl.cc",
+                        "src/google/protobuf/compiler/importer.cc",
+                        "src/google/protobuf/compiler/parser.cc",
+                        "src/google/protobuf/arena.cc",
+                        //                   "src/google/protobuf/implicit_weak_message.cc",
+                        //                   "src/google/protobuf/implicit_weak_message.h",
+                        "src/google/protobuf/map_field.h",
+                        "src/google/protobuf/map_field.cc",
+                        "src/google/protobuf/any.cc",
+                        "src/google/protobuf/any.h",
+                        "src/google/protobuf/stubs/int128.h",
+                        "src/google/protobuf/stubs/int128.cc"
+                        //                   "src/google/protobuf/util/*.cc",
+                        //                   "src/google/protobuf/util/*.h"
+                    ];
+
+            if(qbs.targetOS.contains("linux")) {
+                //   sources.push("src/google/protobuf/stubs/atomicops_internals_x86_gcc.cc");
+            } else if(qbs.targetOS.contains("windows")) {
+                sources.push("src/google/protobuf/stubs/io_win32.cc");
+            }
+
+            return sources;
+        }
     }
 
     StaticLibrary {
         name: "protoc-library"
         Depends { name: "cpp" }
         Depends { name: "gmock" }
+        Depends { name: "protobuf" }
         cpp.includePaths: project.includes
-        cpp.cxxFlags: project.generalCxxFlags
+        //        cpp.cxxFlags: project.generalCxxFlags
+        //        cpp.useLanguageVersionFallback: true
         cpp.cxxLanguageVersion: "c++11"
         cpp.warningLevel: "none"
         cpp.defines: project.defines
@@ -205,11 +253,17 @@ Project {
         Depends { name: "protoc-library" }
         Depends { name: "protobuf" }
 
-        cpp.cxxFlags: project.generalCxxFlags
+        //        cpp.cxxFlags: project.generalCxxFlags
         cpp.includePaths: project.includes
         cpp.cxxLanguageVersion: "c++11"
         cpp.warningLevel: "none"
         cpp.defines: project.defines
+
+        Properties {
+            condition: qbs.targetOS.contains("linux")
+            cpp.dynamicLibraries: ["pthread"]
+            //            cpp.useLanguageVersionFallback: true
+        }
 
         files: [
             "src/google/protobuf/compiler/main.cc"
@@ -267,53 +321,61 @@ Project {
         name: "gmock"
         Depends { name: "cpp" }
 
+        cpp.cxxLanguageVersion: "c++11"
+        //        cpp.useLanguageVersionFallback: true
+
         files: [
             "third_party/googletest/googletest/src/gtest-all.cc",
-            "third_party/googletest/googlemock/src/gmock-all.cc"
+            "third_party/googletest/googlemock/src/gmock-all.cc",
+            "src/google/protobuf/testing/file.cc",
+            "src/google/protobuf/testing/googletest.cc"
         ]
         cpp.includePaths: [
             "third_party/googletest/googletest/include",
             "third_party/googletest/googlemock/include",
             "third_party/googletest/googlemock",
             "third_party/googletest/googletest",
+            "src"
         ]
 
         Export {
             Depends { name: "cpp" }
             cpp.includePaths: [
                 "third_party/googletest/googletest/include",
-                "third_party/googletest/googlemock/include"
+                "third_party/googletest/googlemock/include",
+                "src"
             ]
         }
 
     }
 
-//    Product {
-//        name: "config"
-//        type: "includes"
+    //    Product {
+    //        name: "config"
+    //        type: "includes"
 
-//        Group {
-//            name: "osx"
-//            condition: qbs.targetOS.contains("osx")
-//            files: [
-//                "config/osx/config.h"
-//            ]
-//        }
+    //        Group {
+    //            name: "osx"
+    //            condition: qbs.targetOS.contains("osx")
+    //            files: [
+    //                "config/osx/config.h"
+    //            ]
+    //        }
 
-//        Group {
-//            name: "linux"
-//            condition: qbs.targetOS.contains("linux")
-//            files: [
-//                "config/linux/config.h"
-//            ]
-//        }
+    //        Group {
+    //            name: "linux"
+    //            condition: qbs.targetOS.contains("linux")
+    //            files: [
+    //                "config/linux/config.h"
+    //            ]
+    //        }
 
-//        Group {
-//            name: "windows"
-//            condition: qbs.targetOS.contains("windows")
-//            files: [
-//                "config/windows/config.h"
-//            ]
-//        }
-//    }
+    //        Group {
+    //            name: "windows"
+    //            condition: qbs.targetOS.contains("windows")
+    //            files: [
+    //                "config/windows/config.h"
+    //            ]
+    //        }
+    //    }
 }
+
