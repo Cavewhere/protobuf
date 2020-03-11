@@ -63,6 +63,7 @@ class LIBPROTOBUF_EXPORT InlinedStringField {
 
   void ClearToEmpty(const ::std::string* default_value, Arena* arena)
       GOOGLE_PROTOBUF_ATTRIBUTE_ALWAYS_INLINE {
+      (void)arena;
     ClearToEmptyNoArena(default_value);
   }
   void ClearNonDefaultToEmpty() GOOGLE_PROTOBUF_ATTRIBUTE_ALWAYS_INLINE {
@@ -70,6 +71,7 @@ class LIBPROTOBUF_EXPORT InlinedStringField {
   }
   void ClearToEmptyNoArena(const ::std::string* default_value)
       GOOGLE_PROTOBUF_ATTRIBUTE_ALWAYS_INLINE {
+      (void)default_value;
     ClearNonDefaultToEmptyNoArena();
   }
   void ClearNonDefaultToEmptyNoArena()
@@ -77,6 +79,7 @@ class LIBPROTOBUF_EXPORT InlinedStringField {
 
   void ClearToDefault(const ::std::string* default_value, Arena* arena)
       GOOGLE_PROTOBUF_ATTRIBUTE_ALWAYS_INLINE {
+      (void)arena;
     ClearToDefaultNoArena(default_value);
   }
   void ClearToDefaultNoArena(const ::std::string* default_value)
@@ -84,6 +87,7 @@ class LIBPROTOBUF_EXPORT InlinedStringField {
 
   void Destroy(const ::std::string* default_value, Arena* arena)
       GOOGLE_PROTOBUF_ATTRIBUTE_ALWAYS_INLINE {
+      (void)arena;
     DestroyNoArena(default_value);
   }
   void DestroyNoArena(const ::std::string* default_value)
@@ -96,15 +100,18 @@ class LIBPROTOBUF_EXPORT InlinedStringField {
 
   ::std::string* Mutable(const ::std::string* default_value, Arena* arena)
       GOOGLE_PROTOBUF_ATTRIBUTE_ALWAYS_INLINE {
+      (void)arena;
     return MutableNoArena(default_value);
   }
   ::std::string* MutableNoArena(const ::std::string* default_value)
     GOOGLE_PROTOBUF_ATTRIBUTE_ALWAYS_INLINE;
 
   ::std::string* Release(const ::std::string* default_value, Arena* arena) {
+      (void)arena;
     return ReleaseNoArena(default_value);
   }
   ::std::string* ReleaseNonDefault(const ::std::string* default_value, Arena* arena) {
+      (void)arena;
     return ReleaseNonDefaultNoArena(default_value);
   }
   ::std::string* ReleaseNoArena(const ::std::string* default_value) {
@@ -115,11 +122,13 @@ class LIBPROTOBUF_EXPORT InlinedStringField {
   void Set(const ::std::string* default_value,
            StringPiece value,
            Arena* arena) GOOGLE_PROTOBUF_ATTRIBUTE_ALWAYS_INLINE {
+      (void)arena;
     SetNoArena(default_value, value);
   }
   void SetLite(const ::std::string* default_value,
                StringPiece value,
                Arena* arena) GOOGLE_PROTOBUF_ATTRIBUTE_ALWAYS_INLINE {
+      (void)arena;
     SetNoArena(default_value, value);
   }
   void SetNoArena(const ::std::string* default_value,
@@ -128,11 +137,13 @@ class LIBPROTOBUF_EXPORT InlinedStringField {
   void Set(const ::std::string* default_value,
            const ::std::string& value,
            Arena* arena) GOOGLE_PROTOBUF_ATTRIBUTE_ALWAYS_INLINE {
+      (void)arena;
     SetNoArena(default_value, value);
   }
   void SetLite(const ::std::string* default_value,
                const ::std::string& value,
                Arena* arena) GOOGLE_PROTOBUF_ATTRIBUTE_ALWAYS_INLINE {
+      (void)arena;
     SetNoArena(default_value, value);
   }
   void SetNoArena(const ::std::string* default_value,
@@ -147,6 +158,7 @@ class LIBPROTOBUF_EXPORT InlinedStringField {
   void SetAllocated(const ::std::string* default_value,
                     ::std::string* value,
                     Arena* arena) {
+      (void)arena;
     SetAllocatedNoArena(default_value, value);
   }
   void SetAllocatedNoArena(const ::std::string* default_value,
@@ -160,6 +172,7 @@ class LIBPROTOBUF_EXPORT InlinedStringField {
       const ::std::string* default_value, ::std::string* value, Arena* arena);
 
   bool IsDefault(const ::std::string* default_value) {
+      (void)default_value;
     return false;
   }
  private:
@@ -173,6 +186,7 @@ inline InlinedStringField::InlinedStringField(const ::std::string& default_value
 
 inline void InlinedStringField::AssignWithDefault(
     const ::std::string* default_value, const InlinedStringField& from) {
+    (void)default_value;
   value_ = from.value_;
 }
 
@@ -222,17 +236,20 @@ inline ::std::string* InlinedStringField::ReleaseNonDefaultNoArena(
 
 inline void InlinedStringField::SetNoArena(
     const ::std::string* default_value, StringPiece value) {
+    (void)default_value;
   value_.assign(value.data(), value.length());
 }
 
 inline void InlinedStringField::SetNoArena(
     const ::std::string* default_value, const ::std::string& value) {
+    (void)default_value;
   value_.assign(value);
 }
 
 #if LANG_CXX11
 inline void InlinedStringField::SetNoArena(
     const ::std::string* default_value, ::std::string&& value) {
+    (void)default_value;
   value_.assign(std::move(value));
 }
 #endif
@@ -252,11 +269,13 @@ inline void InlinedStringField::UnsafeSetDefault(
 
 inline ::std::string* InlinedStringField::UnsafeArenaRelease(
     const ::std::string* default_value, Arena* arena) {
+    (void)arena;
   return ReleaseNoArena(default_value);
 }
 
 inline void InlinedStringField::UnsafeArenaSetAllocated(
     const ::std::string* default_value, ::std::string* value, Arena* arena) {
+    (void)arena;
   if (value == NULL) {
     value_.assign(*default_value);
   } else {
