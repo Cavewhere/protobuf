@@ -8,8 +8,8 @@ Project {
     ]
 
     property stringList configIncludes: {
-        if(qbs.targetOS.contains("osx")) {
-            return ["config/osx"]
+        if(qbs.targetOS.contains("macos")) {
+            return ["config/macos"]
         } else if(qbs.targetOS.contains("windows")) {
             return ["config/windows"]
         } else if(qbs.targetOS.contains("linux")) {
@@ -22,7 +22,7 @@ Project {
     property stringList defines: {
         if(qbs.targetOS.contains("windows")) {
             return ["_SCL_SECURE_NO_WARNINGS"]
-        } else if(qbs.targetOS.contains("linux")) {
+        } else if(qbs.targetOS.contains("linux") || qbs.targetOS.contains("macos")) {
             return ["HAVE_PTHREAD"]
         }
 
@@ -354,10 +354,10 @@ Project {
     //        type: "includes"
 
     //        Group {
-    //            name: "osx"
-    //            condition: qbs.targetOS.contains("osx")
+    //            name: "macos"
+    //            condition: qbs.targetOS.contains("macos")
     //            files: [
-    //                "config/osx/config.h"
+    //                "config/macos/config.h"
     //            ]
     //        }
 
